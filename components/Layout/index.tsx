@@ -1,5 +1,5 @@
-import { useMediaQuery, useTheme } from "@mui/material";
-import React, { ReactNode } from "react";
+import { Paper, useMediaQuery, useTheme } from "@mui/material";
+import { ReactNode } from "react";
 import AppBar from "./AppBar";
 import CustomFooter from "./Footer";
 
@@ -15,11 +15,13 @@ const Layout = (props: LayoutProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.between(0, 425));
 
   return (
-    <>
+    <Paper
+      sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
+    >
       <AppBar />
-      <main>{props.children}</main>
+      <main className="flex-1">{props.children}</main>
       <CustomFooter />
-    </>
+    </Paper>
   );
 };
 
