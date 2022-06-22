@@ -14,7 +14,9 @@ import { ColorModeContext } from "../../contexts/ColorModeContext";
 import { useResponsiveMaxWidth } from "../../hooks/useResponsiveMaxWitdth";
 import { useIsMobile, useIsTablet } from "../../utility/media_query_helper";
 
-type AppBarProps = {};
+type AppBarProps = {
+  onClickMenu: () => void;
+};
 
 const AppBar = (props: AppBarProps) => {
   const isMobile = useIsMobile();
@@ -36,7 +38,7 @@ const AppBar = (props: AppBarProps) => {
         }}
       >
         {isMobile && (
-          <IconButton sx={{ ml: "-10px" }}>
+          <IconButton sx={{ ml: "-10px" }} onClick={props.onClickMenu}>
             <Menu />
           </IconButton>
         )}

@@ -1,5 +1,11 @@
 import { CacheProvider } from "@emotion/react";
-import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import {
+  createTheme,
+  CssBaseline,
+  responsiveFontSizes,
+  Theme,
+  ThemeProvider,
+} from "@mui/material";
 import type { AppProps } from "next/app";
 import { useMemo, useState } from "react";
 import { ColorModeContext } from "../contexts/ColorModeContext";
@@ -44,7 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <CacheProvider value={emotionCache}>
       <ColorModeContext.Provider value={colorMode}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={responsiveFontSizes(theme)}>
           <CssBaseline enableColorScheme />
           <Component {...pageProps} />
         </ThemeProvider>
