@@ -1,9 +1,15 @@
+import { Paper, Typography } from "@mui/material";
+import { Container } from "@mui/system";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Layout from "../components/Layout";
-import styles from "../styles/Home.module.css";
+import { useResponsiveMaxWidth } from "../hooks/useResponsiveMaxWitdth";
+import { useIsMobile } from "../utility/media_query_helper";
 
 const Home: NextPage = () => {
+  const isMobile = useIsMobile();
+  const responsiveMaxWidth = useResponsiveMaxWidth();
+
   return (
     <>
       <Head>
@@ -13,28 +19,18 @@ const Home: NextPage = () => {
       </Head>
 
       <Layout>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
-        <h1 className={styles.title}>Welcome to QuillBook</h1>
+        <Paper sx={{ bgcolor: "primary.main", color: "primary.contrastText" }}>
+          <Container
+            sx={{
+              maxWidth: responsiveMaxWidth,
+              mx: isMobile ? undefined : "auto",
+              width: "100%",
+              px: isMobile ? "32px" : 0,
+            }}
+          >
+            <Typography variant="h1">Welcome to QuillBook</Typography>
+          </Container>
+        </Paper>
       </Layout>
     </>
   );

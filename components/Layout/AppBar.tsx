@@ -11,12 +11,15 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { ColorModeContext } from "../../contexts/ColorModeContext";
-import { useIsMobile } from "../../utils/media_query_helper";
+import { useResponsiveMaxWidth } from "../../hooks/useResponsiveMaxWitdth";
+import { useIsMobile, useIsTablet } from "../../utility/media_query_helper";
 
 type AppBarProps = {};
 
 const AppBar = (props: AppBarProps) => {
   const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
+  const responsiveMaxWidth = useResponsiveMaxWidth();
 
   const toggleMode = useContext(ColorModeContext);
 
@@ -24,9 +27,16 @@ const AppBar = (props: AppBarProps) => {
 
   return (
     <MuiAppBar position="sticky">
-      <Toolbar>
+      <Toolbar
+        sx={{
+          maxWidth: responsiveMaxWidth,
+          mx: isMobile ? null : "auto",
+          width: "100%",
+          px: isMobile ? "32px" : 0,
+        }}
+      >
         {isMobile && (
-          <IconButton>
+          <IconButton sx={{ ml: "-10px" }}>
             <Menu />
           </IconButton>
         )}

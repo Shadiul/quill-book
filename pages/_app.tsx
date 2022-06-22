@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <CacheProvider value={emotionCache}>
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
-          <CssBaseline />
+          <CssBaseline enableColorScheme />
           <Component {...pageProps} />
         </ThemeProvider>
       </ColorModeContext.Provider>
