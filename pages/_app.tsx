@@ -37,13 +37,13 @@ function MyApp({ Component, pageProps }: AppProps) {
             palette: PALETTE_DARK,
             components: COMPONENT_THEME.components,
             breakpoints: BREAKPOINTS.breakpoints,
-            shape: { borderRadius: 8 },
+            shape: { borderRadius: 999 },
           })
         : createTheme({
             palette: PALETTE_LIGHT,
             components: COMPONENT_THEME.components,
             breakpoints: BREAKPOINTS.breakpoints,
-            shape: { borderRadius: 8 },
+            shape: { borderRadius: 999 },
           }),
     [mode]
   );

@@ -17,7 +17,7 @@ type DrawerProps = {
 
 const Drawer = (props: DrawerProps) => {
   const navLinks = Object.keys(NAV_LINKS).map((key, index) => (
-    <NavLink key={key} href={NAV_LINKS[key].path}>
+    <NavLink key={key} href={NAV_LINKS[key].path} exact>
       {({ isActive }) => (
         <ListItemButton selected={isActive}>
           <ListItemAvatar>{NAV_LINKS[key].icon}</ListItemAvatar>

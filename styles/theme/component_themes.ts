@@ -2,9 +2,8 @@ import { createTheme, Theme } from "@mui/material";
 
 export const COMPONENT_THEME: Theme = createTheme({
   components: {
-    MuiPaper: {
-      styleOverrides: { root: { borderRadius: 0 } },
-    },
+    MuiPaper: { styleOverrides: { root: { borderRadius: 0 } } },
+
     MuiAppBar: {
       defaultProps: { elevation: 0 },
       styleOverrides: {
@@ -15,9 +14,9 @@ export const COMPONENT_THEME: Theme = createTheme({
       },
     },
     MuiDrawer: { styleOverrides: { paper: { width: 300 } } },
-    // MuiButtonBase: {
-    //   styleOverrides: { root: { borderRadius: 8 } },
-    // },
+
+    MuiButtonBase: { styleOverrides: { root: { borderRadius: 4 } } },
+
     MuiButton: {
       defaultProps: { disableElevation: true },
       styleOverrides: {
@@ -30,6 +29,7 @@ export const COMPONENT_THEME: Theme = createTheme({
         }),
       },
     },
+
     MuiListItemButton: {
       styleOverrides: {
         root: ({ theme }) => ({
@@ -40,6 +40,11 @@ export const COMPONENT_THEME: Theme = createTheme({
           },
         }),
       },
+    },
+
+    MuiCard: {
+      defaultProps: { variant: "outlined" },
+      styleOverrides: { root: { borderRadius: 12 } },
     },
   },
 });

@@ -1,25 +1,26 @@
+import { Box } from "@mui/material";
 import { ReactNode } from "react";
 import { useResponsiveMaxWidth } from "../../hooks/useResponsiveMaxWitdth";
 import { useIsMobile } from "../../utility/media_query_helper";
 
 type ResponsiveContainerProps = {
-  children?: ReactNode | undefined;
+  paddingY?: number;
+  children?: ReactNode;
 };
 
 const ResponsiveContainer = (props: ResponsiveContainerProps) => {
   const isMobile = useIsMobile();
   const responsiveMaxWidth = useResponsiveMaxWidth();
   return (
-    <div
-      style={{
-        maxWidth: responsiveMaxWidth,
-        width: "100%",
-        margin: "auto",
-        padding: isMobile ? "0px 32px" : undefined,
-      }}
+    <Box
+      maxWidth={responsiveMaxWidth}
+      width="100%"
+      margin="auto"
+      padding={isMobile ? "0px 32px" : undefined}
+      paddingY={props.paddingY}
     >
       {props.children}
-    </div>
+    </Box>
   );
 };
 
