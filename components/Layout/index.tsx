@@ -1,5 +1,7 @@
+import { Box, Stack } from "@mui/material";
 import Head from "next/head";
 import { ReactNode, useEffect, useState } from "react";
+import Scrollbars from "react-custom-scrollbars-2";
 import { useIsMobile } from "../../utility/media_query_helper";
 import AppBar from "./AppBar";
 import Drawer from "./Drawer";
@@ -31,12 +33,23 @@ const Layout = (props: LayoutProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="min-h-screen flex flex-col">
-        <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+      <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+
+      <Stack height="100vh">
         <AppBar onClickMenu={toggleDrawer} />
-        <main className="flex-1">{props.children}</main>
-        <CustomFooter />
-      </div>
+
+        <Stack flex={1} component="main">
+          <Scrollbars
+            universal
+            renderThumbVertical={() => (
+              <Box bgcolor="primary.dark" borderRadius={8} />
+            )}
+          >
+            <Box minHeight="100%">{props.children}</Box>
+            <CustomFooter />
+          </Scrollbars>
+        </Stack>
+      </Stack>
     </>
   );
 };

@@ -9,11 +9,6 @@ type FooterProps = {};
 const Footer = (props: FooterProps) => {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
-  const responsiveMaxWidth = useResponsiveMaxWidth();
-
-  const contentClasses = ` max-w-[${
-    isTablet ? 650 : 1128
-  }px] w-full grid grid-cols-${isTablet ? 2 : isMobile ? 1 : 4} gap-6`;
 
   return (
     <Paper

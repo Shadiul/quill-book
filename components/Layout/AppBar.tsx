@@ -31,7 +31,7 @@ const AppBar = (props: AppBarProps) => {
   ));
 
   return (
-    <MuiAppBar position="sticky">
+    <MuiAppBar position="static">
       <Toolbar
         sx={{
           maxWidth: responsiveMaxWidth,

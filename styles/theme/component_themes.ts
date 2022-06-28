@@ -46,5 +46,7 @@ export const COMPONENT_THEME: Theme = createTheme({
       defaultProps: { variant: "outlined" },
       styleOverrides: { root: { borderRadius: 12 } },
     },
+
+    MuiCssBaseline: { styleOverrides: {} },
   },
 });
