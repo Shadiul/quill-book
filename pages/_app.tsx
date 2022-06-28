@@ -1,18 +1,16 @@
 import { CacheProvider } from "@emotion/react";
 import {
-  createTheme,
+  CircularProgress,
   CssBaseline,
   responsiveFontSizes,
-  Theme,
+  Stack,
   ThemeProvider,
+  Typography,
 } from "@mui/material";
 import type { AppProps } from "next/app";
-import { useMemo, useState } from "react";
 import { ColorModeContext } from "../contexts/ColorModeContext";
+import useMaterialColor from "../hooks/useMaterialColor";
 import "../styles/globals.css";
-import { BREAKPOINTS } from "../styles/theme/breakpoints";
-import { COMPONENT_THEME } from "../styles/theme/component_themes";
-import { PALETTE_DARK, PALETTE_LIGHT } from "../styles/theme/palettes";
 import createEmotionCache from "../utility/createEmotionCache";
 
 const clientSideEmotionCache = createEmotionCache();
@@ -20,40 +18,14 @@ const clientSideEmotionCache = createEmotionCache();
 function MyApp({ Component, pageProps }: AppProps) {
   const emotionCache = clientSideEmotionCache;
 
-  const [mode, setMode] = useState<"light" | "dark">("light");
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-      },
-    }),
-    []
-  );
-
-  const theme = useMemo(
-    () =>
-      mode === "dark"
-        ? createTheme({
-            palette: PALETTE_DARK,
-            components: COMPONENT_THEME.components,
-            breakpoints: BREAKPOINTS.breakpoints,
-            shape: { borderRadius: 999 },
-          })
-        : createTheme({
-            palette: PALETTE_LIGHT,
-            components: COMPONENT_THEME.components,
-            breakpoints: BREAKPOINTS.breakpoints,
-            shape: { borderRadius: 999 },
-          }),
-    [mode]
-  );
+  const { isLoading, theme, colorMode } = useMaterialColor("#FFAB91");
 
   return (
     <CacheProvider value={emotionCache}>
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={responsiveFontSizes(theme)}>
           <CssBaseline enableColorScheme />
-          <Component {...pageProps} />
+          {isLoading ? <Loader /> : <Component {...pageProps} />}
         </ThemeProvider>
       </ColorModeContext.Provider>
     </CacheProvider>
@@ -61,3 +33,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp;
+
+const Loader = () => {
+  return (
+    <Stack height="100vh" justifyContent="center" alignItems="center" gap={2}>
+      <CircularProgress />
+      <Typography variant="overline">Loading Theme</Typography>
+    </Stack>
+  );
+};

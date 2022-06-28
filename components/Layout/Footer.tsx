@@ -1,6 +1,5 @@
 import { Divider, Paper, Stack, Typography } from "@mui/material";
 import Link from "next/link";
-import { useResponsiveMaxWidth } from "../../hooks/useResponsiveMaxWitdth";
 import { useIsMobile, useIsTablet } from "../../utility/media_query_helper";
 import ResponsiveContainer from "./ResponsiveContainer";
 
@@ -15,8 +14,8 @@ const Footer = (props: FooterProps) => {
       component="footer"
       sx={{
         py: "48px",
-        backgroundColor: "primary.main",
-        color: "primary.contrastText",
+        backgroundColor: "secondary.main",
+        color: "secondary.contrastText",
       }}
     >
       <ResponsiveContainer>

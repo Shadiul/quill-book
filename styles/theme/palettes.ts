@@ -1,13 +1,13 @@
 import { ThemeOptions } from "@mui/material/styles";
 
 declare module "@mui/material/styles/createPalette" {
-  // interface Palette {
-  //   lightWarning: Palette["primary"];
-  // }
+  interface Palette {
+    // lightWarning: Palette["primary"];
+  }
 
   interface PaletteOptions {
-    primaryContainer: PaletteOptions["primary"];
-    tertiary: PaletteOptions["primary"];
+    primaryContainer?: PaletteOptions["primary"];
+    tertiary?: PaletteOptions["primary"];
   }
 }
 
@@ -25,7 +25,7 @@ export const PALETTE_DARK: ThemeOptions["palette"] = {
   mode: "dark",
   primary: { main: "#B5C4FF", contrastText: "#0B2878" },
   primaryContainer: { main: "#294190", contrastText: "#DBE1FF" },
-  secondary: { main: "#595D71", contrastText: "#2B2F42" },
+  secondary: { main: "#C2C5DD", contrastText: "#2B2F42" },
   tertiary: { main: "#E4BADA", contrastText: "#43273F" },
   background: { default: "#1B1B1F", paper: "#1B1B1F" },
   text: { primary: "#E4E2E6", secondary: "#E4E2E6" },
