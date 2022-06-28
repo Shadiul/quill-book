@@ -14,6 +14,7 @@ export const COMPONENT_THEME: Theme = createTheme({
         }),
       },
     },
+    MuiDrawer: { styleOverrides: { paper: { width: 300 } } },
     MuiButton: {
       defaultProps: { disableElevation: true },
       styleOverrides: {

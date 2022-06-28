@@ -19,7 +19,7 @@ const Layout = (props: LayoutProps) => {
 
   useEffect(() => {
     if (!isMobile && isDrawerOpen) {
-      setIsDrawerOpen(false);
+      // setIsDrawerOpen(false);
     }
   }, [isDrawerOpen, isMobile]);
 

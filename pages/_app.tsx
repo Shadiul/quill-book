@@ -12,8 +12,7 @@ import { ColorModeContext } from "../contexts/ColorModeContext";
 import "../styles/globals.css";
 import { BREAKPOINTS } from "../styles/theme/breakpoints";
 import { COMPONENT_THEME } from "../styles/theme/component_themes";
-import DARK_THEME_PALETTE from "../styles/theme/dark_theme";
-import LIGHT_THEME_PALETTE from "../styles/theme/light_theme";
+import { PALETTE_DARK, PALETTE_LIGHT } from "../styles/theme/palettes";
 import createEmotionCache from "../utility/createEmotionCache";
 
 const clientSideEmotionCache = createEmotionCache();
@@ -35,12 +34,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     () =>
       mode === "dark"
         ? createTheme({
-            palette: DARK_THEME_PALETTE,
+            palette: PALETTE_DARK,
             components: COMPONENT_THEME.components,
             breakpoints: BREAKPOINTS.breakpoints,
           })
         : createTheme({
-            palette: LIGHT_THEME_PALETTE,
+            palette: PALETTE_LIGHT,
             components: COMPONENT_THEME.components,
             breakpoints: BREAKPOINTS.breakpoints,
           }),

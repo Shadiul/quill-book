@@ -8,11 +8,11 @@ import {
   Typography,
 } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useContext } from "react";
 import { ColorModeContext } from "../../contexts/ColorModeContext";
 import { useResponsiveMaxWidth } from "../../hooks/useResponsiveMaxWitdth";
-import { useIsMobile, useIsTablet } from "../../utility/media_query_helper";
+import { useIsMobile } from "../../utility/media_query_helper";
+import { NAV_LINKS } from "./config";
 
 type AppBarProps = {
   onClickMenu: () => void;
@@ -20,12 +20,15 @@ type AppBarProps = {
 
 const AppBar = (props: AppBarProps) => {
   const isMobile = useIsMobile();
-  const isTablet = useIsTablet();
   const responsiveMaxWidth = useResponsiveMaxWidth();
 
   const toggleMode = useContext(ColorModeContext);
 
-  const { pathname } = useRouter();
+  const navLinks = Object.keys(NAV_LINKS).map((key, index) => (
+    <Button key={key}>
+      <Link href={NAV_LINKS[key].path}>{NAV_LINKS[key].label}</Link>
+    </Button>
+  ));
 
   return (
     <MuiAppBar position="sticky">
@@ -37,7 +40,7 @@ const AppBar = (props: AppBarProps) => {
           px: isMobile ? "32px" : 0,
         }}
       >
-        {isMobile && (
+        {(true || isMobile) && (
           <IconButton sx={{ ml: "-10px" }} onClick={props.onClickMenu}>
             <Menu />
           </IconButton>
@@ -50,15 +53,7 @@ const AppBar = (props: AppBarProps) => {
 
             <div className="flex-1" />
 
-            <Button>
-              <Link href="/about">About</Link>
-            </Button>
-            <Button>
-              <Link href="#">Contact</Link>
-            </Button>
-            <Button>
-              <Link href="#">Blog</Link>
-            </Button>
+            {navLinks}
 
             <Tooltip title="Toggle Dark Mode">
               <IconButton onClick={toggleMode.toggleColorMode}>
