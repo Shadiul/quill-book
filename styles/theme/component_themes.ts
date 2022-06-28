@@ -15,6 +15,9 @@ export const COMPONENT_THEME: Theme = createTheme({
       },
     },
     MuiDrawer: { styleOverrides: { paper: { width: 300 } } },
+    // MuiButtonBase: {
+    //   styleOverrides: { root: { borderRadius: 8 } },
+    // },
     MuiButton: {
       defaultProps: { disableElevation: true },
       styleOverrides: {
@@ -24,6 +27,17 @@ export const COMPONENT_THEME: Theme = createTheme({
             theme.palette.mode === "dark"
               ? theme.palette.text.primary
               : theme.palette.primary.main,
+        }),
+      },
+    },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "&.Mui-selected": {
+            backgroundColor: theme.palette.primary.light,
+            color: theme.palette.primary.contrastText,
+            ":hover": { backgroundColor: theme.palette.primary.dark },
+          },
         }),
       },
     },

@@ -1,9 +1,11 @@
 import {
+  Container,
   Drawer as MuiDrawer,
   ListItemAvatar,
   ListItemButton,
   ListItemText,
   Stack,
+  Typography,
 } from "@mui/material";
 import NavLink from "../NavLink";
 import { NAV_LINKS } from "./config";
@@ -27,7 +29,12 @@ const Drawer = (props: DrawerProps) => {
 
   return (
     <MuiDrawer open={props.isOpen} onClose={props.toggleDrawer}>
-      <Stack>{navLinks}</Stack>
+      <Container sx={{ my: 4 }}>
+        <Typography variant="h4">QuillBook</Typography>
+      </Container>
+      <Stack paddingX={2} gap={1}>
+        {navLinks}
+      </Stack>
     </MuiDrawer>
   );
 };

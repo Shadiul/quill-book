@@ -40,7 +40,7 @@ const AppBar = (props: AppBarProps) => {
           px: isMobile ? "32px" : 0,
         }}
       >
-        {(true || isMobile) && (
+        {isMobile && (
           <IconButton sx={{ ml: "-10px" }} onClick={props.onClickMenu}>
             <Menu />
           </IconButton>
