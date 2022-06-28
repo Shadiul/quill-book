@@ -114,18 +114,19 @@ const useMaterialColor = (color: string) => {
 
   useEffect(() => {
     const getColors = async () => {
-      const _colors: ThemeColors = await materialDynamicColors(color);
+      const _colors: ThemeColors | undefined = await materialDynamicColors(
+        color
+      );
       console.log(_colors);
-
-      setTimeout(() => {
-        if (_colors) setColors(_colors);
-        setIsLoading(false);
-      }, 0);
+      if (_colors) setColors(_colors);
     };
 
-    getColors()
-      .catch(console.error)
-      .then(() => setIsLoading(false));
+    setTimeout(() => {
+      getColors().catch(console.error);
+      setIsLoading(false);
+    }, 2000);
+
+    // .then(() => setIsLoading(false));
   }, [color]);
 
   const theme = useMemo(
