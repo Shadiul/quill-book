@@ -6,7 +6,11 @@ import {
   Avatar,
   Button,
   Card,
+  CardActions,
+  CardContent,
   CardHeader,
+  CardMedia,
+  Grid,
   Paper,
   Stack,
   Typography,
@@ -16,6 +20,7 @@ import { NextPage } from "next";
 import Layout from "../components/Layout";
 import ResponsiveContainer from "../components/Layout/ResponsiveContainer";
 import SocialLinks from "../components/SocialLinks";
+import Blog from "../interfaces/blog";
 import { useIsMobile, useIsTablet } from "../utility/media_query_helper";
 
 const Home: NextPage = () => {
@@ -26,6 +31,7 @@ const Home: NextPage = () => {
     >
       <Hero />
       <Summary />
+      <RecentBlogs />
     </Layout>
   );
 };
@@ -154,6 +160,85 @@ const Summary = (props: SummaryProps) => {
               </Stack>
             </Stack>
           </Stack>
+        </Stack>
+      </ResponsiveContainer>
+    </Paper>
+  );
+};
+
+type RecentBlogsProps = {};
+
+const BLOGS: Blog[] = [
+  {
+    id: "1",
+    cover:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png",
+    date: new Date(),
+    title: "Title",
+    description: "Description",
+  },
+  {
+    id: "1",
+    cover:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png",
+    date: new Date(),
+    title: "Title askldjalksjdkl ajsdklasjdkajsdlkaj asjdlkajsd aklsjd as",
+    description:
+      "jkhaskjd laks jdll aksjdasioas alksjdalksjd oijaskdlkajsd oiasjdalksjdoaisjdl sdlakjsd",
+  },
+];
+
+const RecentBlogs = (props: RecentBlogsProps) => {
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
+  return (
+    <Paper>
+      <ResponsiveContainer paddingY={isMobile ? 6 : isTablet ? 8 : 12}>
+        <Stack gap={4}>
+          <Typography variant="h3">Recent Blogs</Typography>
+
+          <Grid container spacing={3}>
+            {BLOGS.map((blog, index) => {
+              return (
+                <Grid key={index} item desktop={4}>
+                  <Card sx={{ height: "480px" }}>
+                    <CardMedia component="img" image={blog.cover} alt="" />
+
+                    <CardContent
+                      sx={{ display: "flex", flexDirection: "column" }}
+                    >
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          display: "-webkit-box",
+                          overflow: "hidden",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 2,
+                        }}
+                      >
+                        {blog.title}
+                      </Typography>
+
+                      <Typography variant="subtitle2">
+                        {blog.date.toDateString()}
+                      </Typography>
+
+                      <div className="flex-1" />
+
+                      <Typography variant="body1">
+                        {blog.description}
+                      </Typography>
+                    </CardContent>
+
+                    <CardActions>
+                      <div className="flex-1"></div>
+                      <Button variant="contained">Read</Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
         </Stack>
       </ResponsiveContainer>
     </Paper>

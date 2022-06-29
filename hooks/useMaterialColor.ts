@@ -124,7 +124,7 @@ const useMaterialColor = (color: string) => {
     setTimeout(() => {
       getColors().catch(console.error);
       setIsLoading(false);
-    }, 2000);
+    }, 0);
 
     // .then(() => setIsLoading(false));
   }, [color]);
