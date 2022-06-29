@@ -18,7 +18,7 @@ const clientSideEmotionCache = createEmotionCache();
 function MyApp({ Component, pageProps }: AppProps) {
   const emotionCache = clientSideEmotionCache;
 
-  const { isLoading, theme, colorMode } = useMaterialColor("#F1F8E9");
+  const { isLoading, theme, colorMode } = useMaterialColor("#2DB58C");
 
   return (
     <CacheProvider value={emotionCache}>
