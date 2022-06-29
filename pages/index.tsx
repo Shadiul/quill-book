@@ -1,3 +1,4 @@
+import { ExpandMore, ExpandMoreOutlined } from "@mui/icons-material";
 import ComputerRoundedIcon from "@mui/icons-material/ComputerRounded";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import PhoneAndroidOutlinedIcon from "@mui/icons-material/PhoneAndroidOutlined";
@@ -6,11 +7,14 @@ import {
   Avatar,
   Button,
   Card,
+  CardActionArea,
   CardActions,
   CardContent,
   CardHeader,
   CardMedia,
   Grid,
+  ImageList,
+  ImageListItem,
   Paper,
   Stack,
   Typography,
@@ -186,6 +190,33 @@ const BLOGS: Blog[] = [
     description:
       "jkhaskjd laks jdll aksjdasioas alksjdalksjd oijaskdlkajsd oiasjdalksjdoaisjdl sdlakjsd",
   },
+  {
+    id: "1",
+    cover:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png",
+    date: new Date(),
+    title: "Title askldjalksjdkl ajsdklasjdkajsdlkaj asjdlkajsd aklsjd as",
+    description:
+      "jkhaskjd laks jdll aksjdasioas alksjdalksjd oijaskdlkajsd oiasjdalksjdoaisjdl sdlakjsd",
+  },
+  {
+    id: "1",
+    cover:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png",
+    date: new Date(),
+    title: "Title askldjalksjdkl ajsdklasjdkajsdlkaj asjdlkajsd aklsjd as",
+    description:
+      "jkhaskjd laks jdll aksjdasioas alksjdalksjd oijaskdlkajsd oiasjdalksjdoaisjdl sdlakjsd",
+  },
+  {
+    id: "1",
+    cover:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png",
+    date: new Date(),
+    title: "Title askldjalksjdkl ajsdklasjdkajsdlkaj asjdlkajsd aklsjd as",
+    description:
+      "jkhaskjd laks jdll aksjdasioas alksjdalksjd oijaskdlkajsd oiasjdalksjdoaisjdl sdlakjsd",
+  },
 ];
 
 const RecentBlogs = (props: RecentBlogsProps) => {
@@ -197,33 +228,28 @@ const RecentBlogs = (props: RecentBlogsProps) => {
         <Stack gap={4}>
           <Typography variant="h3">Recent Blogs</Typography>
 
-          <Grid container spacing={3}>
+          <ImageList
+            variant="masonry"
+            cols={isMobile ? 1 : isTablet ? 2 : 3}
+            gap={24}
+          >
             {BLOGS.map((blog, index) => {
               return (
-                <Grid key={index} item desktop={4}>
-                  <Card sx={{ height: "480px" }}>
-                    <CardMedia component="img" image={blog.cover} alt="" />
+                <ImageListItem key={index} sx={{ width: "100%" }}>
+                  <Card>
+                    <CardMedia
+                      component="img"
+                      image={blog.cover}
+                      alt=""
+                      height={256}
+                    />
 
-                    <CardContent
-                      sx={{ display: "flex", flexDirection: "column" }}
-                    >
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          display: "-webkit-box",
-                          overflow: "hidden",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 2,
-                        }}
-                      >
-                        {blog.title}
-                      </Typography>
+                    <CardContent>
+                      <Typography variant="h6">{blog.title}</Typography>
 
                       <Typography variant="subtitle2">
                         {blog.date.toDateString()}
                       </Typography>
-
-                      <div className="flex-1" />
 
                       <Typography variant="body1">
                         {blog.description}
@@ -231,14 +257,16 @@ const RecentBlogs = (props: RecentBlogsProps) => {
                     </CardContent>
 
                     <CardActions>
-                      <div className="flex-1"></div>
-                      <Button variant="contained">Read</Button>
+                      <Button variant="contained" sx={{ ml: "auto" }}>
+                        Read
+                      </Button>
                     </CardActions>
+                    {/* </Stack> */}
                   </Card>
-                </Grid>
+                </ImageListItem>
               );
             })}
-          </Grid>
+          </ImageList>
         </Stack>
       </ResponsiveContainer>
     </Paper>
