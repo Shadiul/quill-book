@@ -2,7 +2,10 @@ import { createTheme, Theme } from "@mui/material";
 
 export const COMPONENT_THEME: Theme = createTheme({
   components: {
-    MuiPaper: { styleOverrides: { root: { borderRadius: 0 } } },
+    MuiPaper: {
+      defaultProps: { elevation: 0 },
+      styleOverrides: { root: { borderRadius: 0 } },
+    },
 
     MuiAppBar: {
       defaultProps: { elevation: 0 },

@@ -12,6 +12,7 @@ import { useContext } from "react";
 import { ColorModeContext } from "../../contexts/ColorModeContext";
 import { useResponsiveMaxWidth } from "../../hooks/useResponsiveMaxWitdth";
 import { useIsMobile } from "../../utility/media_query_helper";
+import NavLink from "../NavLink";
 import { NAV_LINKS } from "./config";
 
 type AppBarProps = {
@@ -24,11 +25,17 @@ const AppBar = (props: AppBarProps) => {
 
   const toggleMode = useContext(ColorModeContext);
 
-  const navLinks = Object.keys(NAV_LINKS).map((key, index) => (
-    <Button key={key}>
-      <Link href={NAV_LINKS[key].path}>{NAV_LINKS[key].label}</Link>
-    </Button>
-  ));
+  const navLinks = Object.keys(NAV_LINKS).map((key, index) =>
+    NAV_LINKS[key].path === "/" ? null : (
+      <NavLink key={key} href={NAV_LINKS[key].path} exact>
+        {({ isActive }) => (
+          <Button key={key} variant={isActive ? "contained" : "text"}>
+            {NAV_LINKS[key].label}
+          </Button>
+        )}
+      </NavLink>
+    )
+  );
 
   return (
     <MuiAppBar position="static">

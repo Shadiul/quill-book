@@ -1,4 +1,3 @@
-import { ExpandMore, ExpandMoreOutlined } from "@mui/icons-material";
 import ComputerRoundedIcon from "@mui/icons-material/ComputerRounded";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import PhoneAndroidOutlinedIcon from "@mui/icons-material/PhoneAndroidOutlined";
@@ -7,12 +6,8 @@ import {
   Avatar,
   Button,
   Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
   CardHeader,
-  CardMedia,
-  Grid,
+  CircularProgress,
   ImageList,
   ImageListItem,
   Paper,
@@ -21,10 +16,12 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { NextPage } from "next";
+import BlogCard from "../components/Blog/BlogCard";
 import Layout from "../components/Layout";
 import ResponsiveContainer from "../components/Layout/ResponsiveContainer";
 import SocialLinks from "../components/SocialLinks";
-import Blog from "../interfaces/blog";
+import HOME_CONTENTS from "../constants/contents/home_contents";
+import { useRecentBlogsQuery } from "../queries/blogs/recent_blogs_query";
 import { useIsMobile, useIsTablet } from "../utility/media_query_helper";
 
 const Home: NextPage = () => {
@@ -61,15 +58,10 @@ const Hero = (props: HeroProps) => {
           gap={isMobile ? 2 : 6}
         >
           <Stack flex={1} gap={2} justifyContent="center" alignItems="start">
-            <Typography variant="h1">Shadiul Huda</Typography>
+            <Typography variant="h1">{HOME_CONTENTS.fullName}</Typography>
 
             <Typography variant="body1" textAlign="justify">
-              Before then, I had been a biochemist at a chemical company and an
-              agency at a start-up real-estate IT company. Curious and
-              resourceful by nature, I love the process of discovering the
-              problems and creating empowering experiences that can contribute
-              to people’s life to making the world a better place, no matter
-              which field I stayed in.
+              {HOME_CONTENTS.slefSummury}
             </Typography>
 
             <Button variant="contained">Button</Button>
@@ -83,7 +75,14 @@ const Hero = (props: HeroProps) => {
           <Box
             flex={isMobile ? undefined : 1}
             height={isMobile ? 256 : isTablet ? 512 : 768}
+            position="relative"
           >
+            {/* <Image
+              src={faker.image.avatar()}
+              alt="Shadiul Huda"
+              layout="fill"
+              objectFit="cover"
+            /> */}
             <PermIdentityIcon sx={{ height: "100%", width: "100%" }} />
           </Box>
         </Stack>
@@ -172,101 +171,36 @@ const Summary = (props: SummaryProps) => {
 
 type RecentBlogsProps = {};
 
-const BLOGS: Blog[] = [
-  {
-    id: "1",
-    cover:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png",
-    date: new Date(),
-    title: "Title",
-    description: "Description",
-  },
-  {
-    id: "1",
-    cover:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png",
-    date: new Date(),
-    title: "Title askldjalksjdkl ajsdklasjdkajsdlkaj asjdlkajsd aklsjd as",
-    description:
-      "jkhaskjd laks jdll aksjdasioas alksjdalksjd oijaskdlkajsd oiasjdalksjdoaisjdl sdlakjsd",
-  },
-  {
-    id: "1",
-    cover:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png",
-    date: new Date(),
-    title: "Title askldjalksjdkl ajsdklasjdkajsdlkaj asjdlkajsd aklsjd as",
-    description:
-      "jkhaskjd laks jdll aksjdasioas alksjdalksjd oijaskdlkajsd oiasjdalksjdoaisjdl sdlakjsd",
-  },
-  {
-    id: "1",
-    cover:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png",
-    date: new Date(),
-    title: "Title askldjalksjdkl ajsdklasjdkajsdlkaj asjdlkajsd aklsjd as",
-    description:
-      "jkhaskjd laks jdll aksjdasioas alksjdalksjd oijaskdlkajsd oiasjdalksjdoaisjdl sdlakjsd",
-  },
-  {
-    id: "1",
-    cover:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png",
-    date: new Date(),
-    title: "Title askldjalksjdkl ajsdklasjdkajsdlkaj asjdlkajsd aklsjd as",
-    description:
-      "jkhaskjd laks jdll aksjdasioas alksjdalksjd oijaskdlkajsd oiasjdalksjdoaisjdl sdlakjsd",
-  },
-];
-
 const RecentBlogs = (props: RecentBlogsProps) => {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
+
+  const { isLoading, data } = useRecentBlogsQuery();
+
+  console.log(data);
+
   return (
     <Paper>
       <ResponsiveContainer paddingY={isMobile ? 6 : isTablet ? 8 : 12}>
         <Stack gap={4}>
           <Typography variant="h3">Recent Blogs</Typography>
 
-          <ImageList
-            variant="masonry"
-            cols={isMobile ? 1 : isTablet ? 2 : 3}
-            gap={24}
-          >
-            {BLOGS.map((blog, index) => {
-              return (
-                <ImageListItem key={index} sx={{ width: "100%" }}>
-                  <Card>
-                    <CardMedia
-                      component="img"
-                      image={blog.cover}
-                      alt=""
-                      height={256}
-                    />
-
-                    <CardContent>
-                      <Typography variant="h6">{blog.title}</Typography>
-
-                      <Typography variant="subtitle2">
-                        {blog.date.toDateString()}
-                      </Typography>
-
-                      <Typography variant="body1">
-                        {blog.description}
-                      </Typography>
-                    </CardContent>
-
-                    <CardActions>
-                      <Button variant="contained" sx={{ ml: "auto" }}>
-                        Read
-                      </Button>
-                    </CardActions>
-                    {/* </Stack> */}
-                  </Card>
-                </ImageListItem>
-              );
-            })}
-          </ImageList>
+          {isLoading && <CircularProgress sx={{ mx: "auto" }} />}
+          {data && (
+            <ImageList
+              variant={data.blogs.length > 3 ? "masonry" : "standard"}
+              cols={isMobile ? 1 : isTablet ? 2 : 3}
+              gap={24}
+            >
+              {data.blogs.map((blog, index) => {
+                return (
+                  <ImageListItem key={index} sx={{ width: "100%" }}>
+                    <BlogCard blog={blog} />
+                  </ImageListItem>
+                );
+              })}
+            </ImageList>
+          )}
         </Stack>
       </ResponsiveContainer>
     </Paper>
