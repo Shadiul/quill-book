@@ -1,10 +1,12 @@
 import { DarkMode, Menu } from "@mui/icons-material";
+import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 import {
   AppBar as MuiAppBar,
   Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
   IconButton,
-  MenuItem,
-  Select,
   Toolbar,
   Tooltip,
   Typography,
@@ -12,6 +14,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import Link from "next/link";
+import { useState } from "react";
 import { useColorMode } from "../../contexts/ColorModeContext";
 import { useResponsiveMaxWidth } from "../../hooks/useResponsiveMaxWitdth";
 import THEME_COLORS from "../../styles/theme/theme_colors";
@@ -30,6 +33,16 @@ const AppBar = (props: AppBarProps) => {
 
   const { toggleDarkMode, changeColor } = useColorMode();
 
+  const [showColorPicker, setShowColorPicker] = useState(false);
+  const onCloseThemePicker = () => {
+    setShowColorPicker(false);
+  };
+
+  const onChangeColor = (color: string) => {
+    changeColor(color);
+    setShowColorPicker(false);
+  };
+
   const navLinks = Object.keys(NAV_LINKS).map((key, index) =>
     NAV_LINKS[key].path === "/" ? null : (
       <NavLink key={key} href={NAV_LINKS[key].path} exact>
@@ -43,21 +56,42 @@ const AppBar = (props: AppBarProps) => {
   );
 
   return (
-    <MuiAppBar position="static">
-      <Toolbar
-        sx={{
-          maxWidth: responsiveMaxWidth,
-          mx: isMobile ? null : "auto",
-          width: "100%",
-          px: isMobile ? "32px" : 0,
-        }}
-      >
-        {isMobile && (
-          <IconButton sx={{ ml: "-10px" }} onClick={props.onClickMenu}>
-            <Menu />
-          </IconButton>
-        )}
-        {!isMobile && (
+    <>
+      <Dialog open={showColorPicker} onClose={onCloseThemePicker}>
+        <DialogTitle align="center">
+          <ColorLensOutlinedIcon color="secondary" />
+          <Typography variant="h5">Pick you desired color</Typography>
+        </DialogTitle>
+        <DialogContent>
+          <div className="grid grid-cols-5 gap-2">
+            {THEME_COLORS.map((color, index) => (
+              <IconButton key={index} onClick={() => onChangeColor(color)}>
+                <Box
+                  height={24}
+                  width={24}
+                  borderRadius={24}
+                  sx={{ bgcolor: color }}
+                />
+              </IconButton>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
+      <MuiAppBar position="static">
+        <Toolbar
+          sx={{
+            maxWidth: responsiveMaxWidth,
+            mx: isMobile ? null : "auto",
+            width: "100%",
+            px: isMobile ? "32px" : 0,
+          }}
+        >
+          {isMobile && (
+            <IconButton sx={{ ml: "-10px" }} onClick={props.onClickMenu}>
+              <Menu />
+            </IconButton>
+          )}
+
           <div className="w-full flex gap-6 items-center">
             <Typography variant="h6">
               <Link href="/">Home</Link>
@@ -65,47 +99,28 @@ const AppBar = (props: AppBarProps) => {
 
             <div className="flex-1" />
 
-            {navLinks}
+            {!isMobile && navLinks}
 
             <Tooltip title="Toggle Dark Mode">
               <IconButton onClick={toggleDarkMode}>
                 <DarkMode />
               </IconButton>
             </Tooltip>
+
             <Tooltip title="Theme Colors">
-              <Select
-                variant="standard"
-                disableUnderline
-                defaultValue={theme.palette.primary.main}
-                IconComponent={"div"}
-                inputProps={{ sx: { padding: "0 !important" } }}
-                sx={{ borderRadius: 999 }}
-                renderValue={(value) => (
-                  <Box
-                    height={24}
-                    width={24}
-                    borderRadius={24}
-                    sx={{ bgcolor: value }}
-                  />
-                )}
-                onChange={(event) => changeColor(event.target.value)}
-              >
-                {THEME_COLORS.map((color, index) => (
-                  <MenuItem value={color} key={index}>
-                    <Box
-                      height={24}
-                      width={24}
-                      borderRadius={24}
-                      sx={{ bgcolor: color }}
-                    />
-                  </MenuItem>
-                ))}
-              </Select>
+              <IconButton onClick={() => setShowColorPicker(true)}>
+                <Box
+                  height={24}
+                  width={24}
+                  borderRadius={24}
+                  sx={{ bgcolor: "primary.main" }}
+                />
+              </IconButton>
             </Tooltip>
           </div>
-        )}
-      </Toolbar>
-    </MuiAppBar>
+        </Toolbar>
+      </MuiAppBar>
+    </>
   );
 };
 

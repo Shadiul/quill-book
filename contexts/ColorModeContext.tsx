@@ -18,14 +18,13 @@ type Props = {
 };
 
 const ColorModeContextProvider = ({ children }: Props) => {
-  const { isLoading, theme, changeThemeColor, colorMode } =
-    useMaterialColor("#2196F3");
+  const { isLoading, theme, colorMode } = useMaterialColor("#2196F3");
 
   return (
     <ColorModeContext.Provider
       value={{
-        changeColor: changeThemeColor,
-        toggleDarkMode: colorMode.toggleColorMode,
+        changeColor: colorMode.changeThemeColor,
+        toggleDarkMode: colorMode.toggleDarkMode,
       }}
     >
       <ThemeProvider theme={responsiveFontSizes(theme)}>

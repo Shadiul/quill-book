@@ -50,6 +50,8 @@ export const COMPONENT_THEME: Theme = createTheme({
       styleOverrides: { root: { borderRadius: 12 } },
     },
 
+    MuiDialog: { styleOverrides: { paper: { borderRadius: 28 } } },
+
     MuiCssBaseline: { styleOverrides: {} },
   },
 });

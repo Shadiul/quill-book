@@ -101,18 +101,16 @@ const getPalette = (mode: "light" | "dark", colors: ThemeColors) => {
 const useMaterialColor = (color: string) => {
   const [isLoading, setIsLoading] = useState(true);
   const [themeColor, setThemeColor] = useState(color);
-  const [colors, setColors] = useState<ThemeColors | undefined>(undefined);
+  const [paletteColors, setPaletteColors] = useState<ThemeColors | undefined>(
+    undefined
+  );
   const [mode, setMode] = useState<"light" | "dark">("light");
-
-  const changeThemeColor = (color: string) => {
-    setThemeColor(color);
-  };
 
   const colorMode = useMemo(
     () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-      },
+      changeThemeColor: (color: string) => setThemeColor(color),
+      toggleDarkMode: () =>
+        setMode((prevMode) => (prevMode === "light" ? "dark" : "light")),
     }),
     []
   );
@@ -122,30 +120,29 @@ const useMaterialColor = (color: string) => {
       const _colors: ThemeColors | undefined = await materialDynamicColors(
         themeColor
       );
-      console.log(_colors);
-      if (_colors) setColors(_colors);
+      if (_colors) setPaletteColors(_colors);
     };
 
     setTimeout(() => {
       getColors().catch(console.error);
       setIsLoading(false);
     }, 0);
-
-    // .then(() => setIsLoading(false));
-  }, [color, themeColor]);
+  }, [themeColor]);
 
   const theme = useMemo(
     () =>
       createTheme({
-        palette: colors ? getPalette(mode, colors) : { mode: mode },
+        palette: paletteColors
+          ? getPalette(mode, paletteColors)
+          : { mode: mode },
         components: COMPONENT_THEME.components,
         breakpoints: BREAKPOINTS.breakpoints,
         shape: { borderRadius: 999 },
       }),
-    [colors, mode]
+    [paletteColors, mode]
   );
 
-  return { isLoading, theme, changeThemeColor, colorMode };
+  return { isLoading, theme, colorMode };
 };
 
 export default useMaterialColor;

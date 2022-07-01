@@ -16,7 +16,6 @@ const THEME_COLORS: string[] = [
   "#FF9800",
   "#FF5722",
   "#795548",
-  "#9E9E9E",
   "#607D8B",
 ];
 
