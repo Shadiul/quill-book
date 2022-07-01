@@ -18,7 +18,7 @@ type Props = {
 };
 
 const ColorModeContextProvider = ({ children }: Props) => {
-  const { isLoading, theme, colorMode } = useMaterialColor("#2196F3");
+  const { isLoading, theme, colorMode } = useMaterialColor();
 
   return (
     <ColorModeContext.Provider

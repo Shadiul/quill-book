@@ -13,5 +13,5 @@ export const NAV_LINKS: { [key: string]: DrawerItem } = {
     icon: <MailOutlinedIcon />,
     label: "Contact",
   },
-  blogs: { path: ROUTES.blogs, icon: <BookOutlinedIcon />, label: "Blogs" },
+  blogs: { path: ROUTES.blog, icon: <BookOutlinedIcon />, label: "Blogs" },
 };

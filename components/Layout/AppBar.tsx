@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  Stack,
   Toolbar,
   Tooltip,
   Typography,
@@ -27,7 +28,6 @@ type AppBarProps = {
 };
 
 const AppBar = (props: AppBarProps) => {
-  const theme = useTheme();
   const isMobile = useIsMobile();
   const responsiveMaxWidth = useResponsiveMaxWidth();
 
@@ -60,7 +60,7 @@ const AppBar = (props: AppBarProps) => {
       <Dialog open={showColorPicker} onClose={onCloseThemePicker}>
         <DialogTitle align="center">
           <ColorLensOutlinedIcon color="secondary" />
-          <Typography variant="h5">Pick you desired color</Typography>
+          {/* <Typography variant="h5">Pick you desired color</Typography> */}
         </DialogTitle>
         <DialogContent>
           <div className="grid grid-cols-5 gap-2">
@@ -92,12 +92,19 @@ const AppBar = (props: AppBarProps) => {
             </IconButton>
           )}
 
-          <div className="w-full flex gap-6 items-center">
-            <Typography variant="h6">
-              <Link href="/">Home</Link>
-            </Typography>
+          <Stack direction="row" width="100%" gap={3} alignItems="center">
+            <NavLink href="/" exact>
+              {({ isActive }) => (
+                <Typography
+                  variant="h6"
+                  color={isActive ? "primary" : undefined}
+                >
+                  <Link href="/">Home</Link>
+                </Typography>
+              )}
+            </NavLink>
 
-            <div className="flex-1" />
+            <Box flex={1} />
 
             {!isMobile && navLinks}
 
@@ -117,7 +124,7 @@ const AppBar = (props: AppBarProps) => {
                 />
               </IconButton>
             </Tooltip>
-          </div>
+          </Stack>
         </Toolbar>
       </MuiAppBar>
     </>

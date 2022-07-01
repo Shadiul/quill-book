@@ -1,7 +1,7 @@
 const ROUTES = {
   about: "/about",
   contact: "/contact",
-  blogs: "/blogs",
+  blog: "/blog",
 };
 
 export default ROUTES;

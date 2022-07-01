@@ -1,5 +1,6 @@
 import { createTheme, PaletteOptions } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
+import LOCAL_STORAGE_KEYS from "../constants/local_storage_keys";
 import { BREAKPOINTS } from "../styles/theme/breakpoints";
 import { COMPONENT_THEME } from "../styles/theme/component_themes";
 import { materialDynamicColors } from "../utility/material_dynamic_colors";
@@ -98,19 +99,29 @@ const getPalette = (mode: "light" | "dark", colors: ThemeColors) => {
   }
 };
 
-const useMaterialColor = (color: string) => {
+type ThemeModeType = "light" | "dark";
+
+const useMaterialColor = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [themeColor, setThemeColor] = useState(color);
+  const [themeColor, setThemeColor] = useState("#2196F3");
   const [paletteColors, setPaletteColors] = useState<ThemeColors | undefined>(
     undefined
   );
-  const [mode, setMode] = useState<"light" | "dark">("light");
+  const [mode, setMode] = useState<ThemeModeType>("light");
 
   const colorMode = useMemo(
     () => ({
-      changeThemeColor: (color: string) => setThemeColor(color),
-      toggleDarkMode: () =>
-        setMode((prevMode) => (prevMode === "light" ? "dark" : "light")),
+      changeThemeColor: (color: string) => {
+        setThemeColor(color);
+        localStorage.setItem(LOCAL_STORAGE_KEYS.themeColor, color);
+      },
+      toggleDarkMode: () => {
+        setMode((prevMode) => {
+          const newMode = prevMode === "light" ? "dark" : "light";
+          localStorage.setItem(LOCAL_STORAGE_KEYS.themeMode, newMode);
+          return newMode;
+        });
+      },
     }),
     []
   );
@@ -128,6 +139,20 @@ const useMaterialColor = (color: string) => {
       setIsLoading(false);
     }, 0);
   }, [themeColor]);
+
+  useEffect(() => {
+    const cachedThemeColor = localStorage.getItem(
+      LOCAL_STORAGE_KEYS.themeColor
+    );
+    if (cachedThemeColor) setThemeColor(cachedThemeColor);
+
+    const cachedThemeMode = localStorage.getItem(LOCAL_STORAGE_KEYS.themeMode);
+    if (
+      cachedThemeMode &&
+      (cachedThemeMode === "dark" || cachedThemeMode === "light")
+    )
+      setMode(cachedThemeMode);
+  }, []);
 
   const theme = useMemo(
     () =>
