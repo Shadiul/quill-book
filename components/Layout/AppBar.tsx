@@ -60,7 +60,7 @@ const AppBar = (props: AppBarProps) => {
       <Dialog open={showColorPicker} onClose={onCloseThemePicker}>
         <DialogTitle align="center">
           <ColorLensOutlinedIcon color="secondary" />
-          {/* <Typography variant="h5">Pick you desired color</Typography> */}
+          <p>Pick your desired color</p>
         </DialogTitle>
         <DialogContent>
           <div className="grid grid-cols-5 gap-2">

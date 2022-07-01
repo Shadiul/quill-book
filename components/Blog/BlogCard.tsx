@@ -31,7 +31,9 @@ const BlogCard = ({ blog }: BlogCardProps) => {
 
       <CardActions>
         <Link href={`blog/${blog.id}`}>
-          <Button sx={{ ml: "auto" }}>Read</Button>
+          <Button variant="outlined" sx={{ ml: "auto" }}>
+            Read
+          </Button>
         </Link>
       </CardActions>
     </Card>

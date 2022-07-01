@@ -6,7 +6,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
 
   if (method === "GET") {
-    const blogs: Blog[] = [...Array(3)].map((index) => ({
+    const blogs: Blog[] = [...Array(5)].map((index) => ({
       id: faker.database.mongodbObjectId(),
       date: faker.date.recent(),
       title: faker.lorem.sentence(),
