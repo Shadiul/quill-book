@@ -100,8 +100,13 @@ const getPalette = (mode: "light" | "dark", colors: ThemeColors) => {
 
 const useMaterialColor = (color: string) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [themeColor, setThemeColor] = useState(color);
   const [colors, setColors] = useState<ThemeColors | undefined>(undefined);
   const [mode, setMode] = useState<"light" | "dark">("light");
+
+  const changeThemeColor = (color: string) => {
+    setThemeColor(color);
+  };
 
   const colorMode = useMemo(
     () => ({
@@ -115,7 +120,7 @@ const useMaterialColor = (color: string) => {
   useEffect(() => {
     const getColors = async () => {
       const _colors: ThemeColors | undefined = await materialDynamicColors(
-        color
+        themeColor
       );
       console.log(_colors);
       if (_colors) setColors(_colors);
@@ -127,7 +132,7 @@ const useMaterialColor = (color: string) => {
     }, 0);
 
     // .then(() => setIsLoading(false));
-  }, [color]);
+  }, [color, themeColor]);
 
   const theme = useMemo(
     () =>
@@ -140,7 +145,7 @@ const useMaterialColor = (color: string) => {
     [colors, mode]
   );
 
-  return { isLoading, theme, colorMode };
+  return { isLoading, theme, changeThemeColor, colorMode };
 };
 
 export default useMaterialColor;

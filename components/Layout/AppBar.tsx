@@ -3,14 +3,18 @@ import {
   AppBar as MuiAppBar,
   Button,
   IconButton,
+  MenuItem,
+  Select,
   Toolbar,
   Tooltip,
   Typography,
+  useTheme,
 } from "@mui/material";
+import { Box } from "@mui/system";
 import Link from "next/link";
-import { useContext } from "react";
-import { ColorModeContext } from "../../contexts/ColorModeContext";
+import { useColorMode } from "../../contexts/ColorModeContext";
 import { useResponsiveMaxWidth } from "../../hooks/useResponsiveMaxWitdth";
+import THEME_COLORS from "../../styles/theme/theme_colors";
 import { useIsMobile } from "../../utility/media_query_helper";
 import NavLink from "../NavLink";
 import { NAV_LINKS } from "./config";
@@ -20,10 +24,11 @@ type AppBarProps = {
 };
 
 const AppBar = (props: AppBarProps) => {
+  const theme = useTheme();
   const isMobile = useIsMobile();
   const responsiveMaxWidth = useResponsiveMaxWidth();
 
-  const toggleMode = useContext(ColorModeContext);
+  const { toggleDarkMode, changeColor } = useColorMode();
 
   const navLinks = Object.keys(NAV_LINKS).map((key, index) =>
     NAV_LINKS[key].path === "/" ? null : (
@@ -63,9 +68,39 @@ const AppBar = (props: AppBarProps) => {
             {navLinks}
 
             <Tooltip title="Toggle Dark Mode">
-              <IconButton onClick={toggleMode.toggleColorMode}>
+              <IconButton onClick={toggleDarkMode}>
                 <DarkMode />
               </IconButton>
+            </Tooltip>
+            <Tooltip title="Theme Colors">
+              <Select
+                variant="standard"
+                disableUnderline
+                defaultValue={theme.palette.primary.main}
+                IconComponent={"div"}
+                inputProps={{ sx: { padding: "0 !important" } }}
+                sx={{ borderRadius: 999 }}
+                renderValue={(value) => (
+                  <Box
+                    height={24}
+                    width={24}
+                    borderRadius={24}
+                    sx={{ bgcolor: value }}
+                  />
+                )}
+                onChange={(event) => changeColor(event.target.value)}
+              >
+                {THEME_COLORS.map((color, index) => (
+                  <MenuItem value={color} key={index}>
+                    <Box
+                      height={24}
+                      width={24}
+                      borderRadius={24}
+                      sx={{ bgcolor: color }}
+                    />
+                  </MenuItem>
+                ))}
+              </Select>
             </Tooltip>
           </div>
         )}
