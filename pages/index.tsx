@@ -83,6 +83,7 @@ const Hero = (props: HeroProps) => {
               layout="fill"
               objectFit="cover"
             /> */}
+
             <PermIdentityIcon sx={{ height: "100%", width: "100%" }} />
           </Box>
         </Stack>
