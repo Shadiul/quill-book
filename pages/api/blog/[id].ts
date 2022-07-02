@@ -21,8 +21,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-const content = `
-# Role based employees profile management system
+const content = `# Role based employees profile management system
 
 
 
@@ -59,13 +58,44 @@ Libraries used:
 Admin is the top of the pyramid which has a downline of System managers. Each system manager is registered with its admin id/username. The same structure follows for business managers and employees except employess is the lowest element of the pyramid so it wont have any downline.
 
 
+
+~~~
+Admin
+|  
+|______system manager A
+    |  |
+    |  |__business manager A
+    |  |  |  employee A
+    |  |  |  employee B
+    |  |  |.................
+    |  |
+    |  |__business manager B
+    |  |  |  employee C
+    |  |  |  employee D  
+    |  |  |.................
+    |__system manager B
+    |  |
+    |  |__business manager C
+    |  |  |  employee E
+    |  |  |  employee F
+    |  |  |.................
+    |  |
+    |  |__business manager D
+    |  |  |  employee G
+    |  |  |  employee H
+    |  |  |.................
+
+~~~
+
+
+
 To prevent access form using non allowed routes we used conditional role based routes using  **react-router-dom** and **context api** .
 
 
 
 Route Objects:
 
-\`\`\`tsx {3-4, 8}
+~~~tsx
 export const UNPROTECTED_ROUTES: RouteObject[] = [
   { path: "/", element: <RoleSelectionPage /> },
   { path: PATHS_ADMIN.login, element: <AdminLoginPage /> },
@@ -108,7 +138,7 @@ export const PROTECTED_ROUTES_SYSTEM_MANAGER: RouteObject[] = [
     ],
   },
 ];
-\`\`\`
+~~~
 
 ~~~tsx
 function App() {
@@ -150,5 +180,4 @@ For data visualization we can use the current role from the auth context then li
 #### Proposals for betterment
 
 - Admin should not have access to data that can be read and write by system manager. Admin's role should be limited to send invitaions of system managers and controlling the system managers permission and access. 
-
 `;
